@@ -1,11 +1,6 @@
 pipeline {
     agent any
 
-    tools {
-        gradle 'Gradle'
-        jdk 'JDK'
-    }
-
     stages {
         stage('Checkout') {
             steps {
@@ -15,26 +10,20 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh 'gradle build'
+                sh './gradlew build'
             }
         }
 
         stage('Test') {
             steps {
-                sh 'gradle test'
-            }
-        }
-
-        stage('Run Application') {
-            steps {
-                sh 'gradle run'
+                sh './gradlew test'
             }
         }
     }
 
     post {
         success {
-            echo 'Build and deployment successful!'
+            echo 'Build successful!'
         }
         failure {
             echo 'Build failed!'
